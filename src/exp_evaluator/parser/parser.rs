@@ -1,5 +1,5 @@
-use super::exp_tree::ExpressionTree;
-use crate::exp_evaluator::parser::exp_tree::{NUMBER_NODE, OPERATOR_NODE};
+use crate::exp_evaluator::exp_tree::ExpressionTree;
+use crate::exp_evaluator::exp_tree::{NUMBER_NODE, OPERATOR_NODE};
 use crate::exp_evaluator::parser::lexer::{Lexer, ERR, NUM};
 use crate::exp_evaluator::expression::Expression;
 
