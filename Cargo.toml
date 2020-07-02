@@ -1,5 +1,5 @@
 [package]
-name = "RustExpCalc"
+name = "rust_exp_calc"
 version = "0.1.0"
 authors = ["Fergal Miller <fergalmiller@hotmail.co.uk>"]
 edition = "2018"
