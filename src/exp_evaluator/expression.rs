@@ -7,14 +7,33 @@ impl Expression
 {
     pub fn pop(&mut self) -> Option<char>
     {
-        if self.expression.len() == 0 { return Option::None::<char>; }
-        let c = self.expression.chars().next();
-        self.expression = String::from(&self.expression[1..]);
+        let mut chars = self.expression.chars();
+
+        let mut c: Option<char>;
+        loop
+        {
+            c = chars.next();
+
+            if c.is_none() { return Option::None::<char>; }
+            if !c.unwrap().is_whitespace() { break; }
+        }
+
+        self.expression = String::from(chars.as_str());
         c
     }
 
     pub fn peek(&self) -> Option<char>
     {
-        self.expression.chars().next()
+        let mut chars = self.expression.chars();
+
+        let mut c: Option<char>;
+        loop
+        {
+            c = chars.next();
+
+            if c.is_none() { return Option::None::<char>; }
+            if !c.unwrap().is_whitespace() { break; }
+        }
+        c
     }
 }
