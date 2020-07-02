@@ -21,14 +21,9 @@ impl Lexer
     pub fn get_token(&mut self) -> i8
     {
         let next_char_opt = self.expression.pop();
-
-        if next_char_opt.is_none()
-        {
-            return ERR
-        }
+        if next_char_opt.is_none() { return ERR; }
 
         let next_char = next_char_opt.unwrap();
-
         match next_char
         {
             '+' => PLUS,
@@ -62,9 +57,9 @@ impl Lexer
                     number_string.push(next_char);
                     self.expression.pop();
                 }
-                else { break }
+                else { break; }
             }
-            else { break }
+            else { break; }
         }
         self.number_value = number_string.parse().unwrap();
     }
