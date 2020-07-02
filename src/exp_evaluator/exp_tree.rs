@@ -16,7 +16,22 @@ impl ExpressionTree
         match self.node_type
         {
             NUMBER_NODE => self.value.parse().unwrap(),
-            _ => self.left.as_ref().unwrap().evaluate() + self.right.as_ref().unwrap().evaluate()
+            _ => self.evaluate_branch()
+        }
+    }
+
+    fn evaluate_branch(&self) -> i32
+    {
+        let left = self.left.as_ref().unwrap();
+        let right = self.right.as_ref().unwrap();
+        match self.value.as_str()
+        {
+            "+" => left.evaluate() + right.evaluate(),
+            "-" => left.evaluate() - right.evaluate(),
+            "*" => left.evaluate() * right.evaluate(),
+            "/" => left.evaluate() / right.evaluate(),
+            "^" => left.evaluate() ^ right.evaluate(),
+            _ => panic!("Operator could not be matched in branch evaluation.")
         }
     }
 }
