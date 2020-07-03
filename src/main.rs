@@ -32,6 +32,7 @@ fn run()
         let mut parser = Parser { lexer };
 
         let expression_tree = parser.parse();
+        println!("Tree in order: {}", expression_tree.to_string());
         let result = expression_tree.evaluate();
         println!("Result: {}", result);
     }
