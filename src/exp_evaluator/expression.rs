@@ -41,25 +41,25 @@ mod tests
     #[test]
     fn test_pop()
     {
-        let mut exp = Expression { expression: String::from("something") };
+        let mut exp = Expression { expression: String::from("blink") };
 
         let actual_popped = exp.pop().unwrap();
         let actual_expression = exp.expression;
 
-        assert_eq!(actual_popped, 's');
-        assert_eq!(actual_expression, "omething")
+        assert_eq!(actual_popped, 'b');
+        assert_eq!(actual_expression, "link")
     }
 
     #[test]
     fn test_peek()
     {
-        let exp = Expression { expression: String::from("something") };
+        let exp = Expression { expression: String::from("blink") };
 
         let actual_popped = exp.peek().unwrap();
         let actual_expression = exp.expression;
 
-        assert_eq!(actual_popped, 's');
-        assert_eq!(actual_expression, "something")
+        assert_eq!(actual_popped, 'b');
+        assert_eq!(actual_expression, "blink")
     }
 
     #[test]
