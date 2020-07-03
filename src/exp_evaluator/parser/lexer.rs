@@ -20,7 +20,7 @@ pub struct Lexer
 
 impl Lexer
 {
-    pub fn get_token(&mut self)
+    pub fn next(&mut self)
     {
         let next_char_opt = self.expression.pop();
         if next_char_opt.is_none() { self.current_token = ERR; return; }
