@@ -11,20 +11,8 @@ impl Parser
 {
     pub fn parse(&mut self) -> ExpressionTree
     {
-        loop
-        {
-            self.lexer.next();
-
-            let token = self.lexer.current_token;
-            match token
-            {
-                ERR => break,
-                NUM => println!("Number token processed: {}", self.lexer.number_value),
-                _ => println!("Token processed: {}", token)
-            }
-        }
-
-        return make_demo_tree();
+        self.lexer.next();
+        return self.parse_precedence_1();
     }
 
     fn parse_precedence_1(&mut self) -> ExpressionTree
@@ -110,28 +98,4 @@ fn make_leaf(leaf_value: String) -> ExpressionTree
         left: Option::None::<Box<ExpressionTree>>,
         right: Option::None::<Box<ExpressionTree>>
     }
-}
-
-pub fn make_demo_tree() -> ExpressionTree
-{
-    let left = ExpressionTree {
-        node_type: NUMBER_NODE,
-        value: String::from("7"),
-        left: Option::None,
-        right: Option::None
-    };
-
-    let right = ExpressionTree {
-        node_type: NUMBER_NODE,
-        value: String::from("5"),
-        left: Option::None,
-        right: Option::None
-    };
-
-    return ExpressionTree {
-        node_type: OPERATOR_NODE,
-        value: String::from("+"),
-        left: Option::Some(Box::new(left)),
-        right: Option::Some(Box::new(right))
-    };
 }
