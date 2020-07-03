@@ -58,7 +58,7 @@ impl Parser
         {
             NUM => self.parse_number(),
             PAR_LEFT => self.parse_left_parenthesis(),
-            _ => panic!("Could not parse. Invalid token from lexer found.")
+            _ => panic!("Could not parse. Invalid token from lexer found. Token: {}", self.lexer.current_token)
         }
     }
 
