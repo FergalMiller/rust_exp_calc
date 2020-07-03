@@ -127,6 +127,9 @@ mod tests
 {
     use crate::exp_evaluator::exp_tree::{get_precedence, ExpressionTree, OPERATOR_NODE, NUMBER_NODE};
 
+    const FLOAT_VALUE_ONE:f64 = 5.0;
+    const FLOAT_VALUE_TWO:f64 = 10.0;
+
     #[test]
     fn test_get_precedence()
     {
@@ -140,86 +143,71 @@ mod tests
     #[test]
     fn test_evaluate_addition_operation_tree()
     {
-        let left_value:f64 = 5.0;
-        let right_value: f64 = 10.0;
-
         let exp_tree = ExpressionTree
         {
             node_type: OPERATOR_NODE,
             value: String::from("+"),
-            left: create_leaf_opt(left_value.to_string()),
-            right: create_leaf_opt(right_value.to_string())
+            left: create_leaf_opt(FLOAT_VALUE_ONE.to_string()),
+            right: create_leaf_opt(FLOAT_VALUE_TWO.to_string())
         };
 
-        assert_eq!(exp_tree.evaluate(), left_value + right_value);
+        assert_eq!(exp_tree.evaluate(), FLOAT_VALUE_ONE + FLOAT_VALUE_TWO);
     }
 
     #[test]
     fn test_evaluate_subtraction_operation_tree()
     {
-        let left_value:f64 = 5.0;
-        let right_value: f64 = 10.0;
-
         let exp_tree = ExpressionTree
         {
             node_type: OPERATOR_NODE,
             value: String::from("-"),
-            left: create_leaf_opt(left_value.to_string()),
-            right: create_leaf_opt(right_value.to_string())
+            left: create_leaf_opt(FLOAT_VALUE_ONE.to_string()),
+            right: create_leaf_opt(FLOAT_VALUE_TWO.to_string())
         };
 
-        assert_eq!(exp_tree.evaluate(), left_value - right_value);
+        assert_eq!(exp_tree.evaluate(), FLOAT_VALUE_ONE - FLOAT_VALUE_TWO);
     }
 
     #[test]
     fn test_evaluate_multiplication_operation_tree()
     {
-        let left_value:f64 = 5.0;
-        let right_value: f64 = 10.0;
-
         let exp_tree = ExpressionTree
         {
             node_type: OPERATOR_NODE,
             value: String::from("*"),
-            left: create_leaf_opt(left_value.to_string()),
-            right: create_leaf_opt(right_value.to_string())
+            left: create_leaf_opt(FLOAT_VALUE_ONE.to_string()),
+            right: create_leaf_opt(FLOAT_VALUE_TWO.to_string())
         };
 
-        assert_eq!(exp_tree.evaluate(), left_value * right_value);
+        assert_eq!(exp_tree.evaluate(), FLOAT_VALUE_ONE * FLOAT_VALUE_TWO);
     }
 
     #[test]
     fn test_evaluate_division_operation_tree()
     {
-        let left_value:f64 = 5.0;
-        let right_value: f64 = 10.0;
-
         let exp_tree = ExpressionTree
         {
             node_type: OPERATOR_NODE,
             value: String::from("/"),
-            left: create_leaf_opt(left_value.to_string()),
-            right: create_leaf_opt(right_value.to_string())
+            left: create_leaf_opt(FLOAT_VALUE_ONE.to_string()),
+            right: create_leaf_opt(FLOAT_VALUE_TWO.to_string())
         };
 
-        assert_eq!(exp_tree.evaluate(), left_value / right_value);
+        assert_eq!(exp_tree.evaluate(), FLOAT_VALUE_ONE / FLOAT_VALUE_TWO);
     }
 
     #[test]
     fn test_evaluate_power_operation_tree()
     {
-        let left_value:f64 = 5.0;
-        let right_value: f64 = 10.0;
-
         let exp_tree = ExpressionTree
         {
             node_type: OPERATOR_NODE,
             value: String::from("^"),
-            left: create_leaf_opt(left_value.to_string()),
-            right: create_leaf_opt(right_value.to_string())
+            left: create_leaf_opt(FLOAT_VALUE_ONE.to_string()),
+            right: create_leaf_opt(FLOAT_VALUE_TWO.to_string())
         };
 
-        assert_eq!(exp_tree.evaluate(), left_value.powf(right_value));
+        assert_eq!(exp_tree.evaluate(), FLOAT_VALUE_ONE.powf(FLOAT_VALUE_TWO));
     }
 
     fn create_leaf_opt(value: String) -> Option<Box<ExpressionTree>>
