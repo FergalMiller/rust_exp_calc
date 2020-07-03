@@ -32,3 +32,55 @@ fn find_next_non_whitespace(chars: &mut Chars) -> Option<char>
     }
     c
 }
+
+#[cfg(test)]
+mod tests
+{
+    use crate::exp_evaluator::expression::{Expression, find_next_non_whitespace};
+
+    #[test]
+    fn test_pop()
+    {
+        let mut exp = Expression { expression: String::from("something") };
+
+        let actual_popped = exp.pop().unwrap();
+        let actual_expression = exp.expression;
+
+        assert_eq!(actual_popped, 's');
+        assert_eq!(actual_expression, "omething")
+    }
+
+    #[test]
+    fn test_peek()
+    {
+        let exp = Expression { expression: String::from("something") };
+
+        let actual_popped = exp.peek().unwrap();
+        let actual_expression = exp.expression;
+
+        assert_eq!(actual_popped, 's');
+        assert_eq!(actual_expression, "something")
+    }
+
+    #[test]
+    fn test_find_next_non_whitespace()
+    {
+        let s = String::from("  donkey");
+        let mut chars = s.chars();
+
+        let actual = find_next_non_whitespace(&mut chars).unwrap();
+
+        assert_eq!(actual, 'd');
+    }
+
+    #[test]
+    fn test_find_next_non_whitespace_with_tab()
+    {
+        let s = String::from("\tdonkey");
+        let mut chars = s.chars();
+
+        let actual = find_next_non_whitespace(&mut chars).unwrap();
+
+        assert_eq!(actual, 'd');
+    }
+}
