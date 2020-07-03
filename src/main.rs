@@ -1,5 +1,8 @@
 use std::io;
 use std::io::Write;
+use crate::exp_evaluator::parser::parser::Parser;
+use crate::exp_evaluator::expression::Expression;
+use crate::exp_evaluator::parser::lexer::{Lexer, ERR};
 
 mod exp_evaluator;
 
@@ -24,8 +27,13 @@ fn run()
             _ => println!("User entered: {}", input)
         }
 
-        let result_node = exp_evaluator::parser::parser::parse(&input);
-        println!("result node token: {}", result_node.evaluate())
+        let expression = Expression { expression: input };
+        let lexer = Lexer{ expression, current_token: ERR, number_value: "".to_string() };
+        let mut parser = Parser { lexer };
+
+        let expression_tree = parser.parse();
+        let result = expression_tree.evaluate();
+        println!("Result: {}", result);
     }
 }
 
