@@ -49,7 +49,6 @@ impl ExpressionTree
 
     fn to_string_operator_node(&self) -> String
     {
-
         let mut s = String::new();
         let mut parenthesis_left = false;
         let mut parenthesis_right = false;
@@ -78,7 +77,6 @@ impl ExpressionTree
             {
                 parenthesis_right = true;
             }
-
         }
 
         if left.node_type == OPERATOR_NODE
