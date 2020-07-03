@@ -74,6 +74,7 @@ impl Parser
         self.lexer.next();
         let result = self.parse_precedence_1();
         if self.lexer.current_token != PAR_RIGHT { panic!("Right parenthesis expected!") }
+        self.lexer.next();
         result
     }
 }
