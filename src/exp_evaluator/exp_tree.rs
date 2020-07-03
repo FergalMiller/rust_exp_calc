@@ -121,3 +121,115 @@ fn get_precedence(operator_value: &String) -> u8
         _ => panic!("No precedence value could be found for operator '{}'", operator_value)
     }
 }
+
+#[cfg(test)]
+mod tests
+{
+    use crate::exp_evaluator::exp_tree::{get_precedence, ExpressionTree, OPERATOR_NODE, NUMBER_NODE};
+
+    #[test]
+    fn test_get_precedence()
+    {
+        assert_eq!(get_precedence(&"+".to_string()), 1);
+        assert_eq!(get_precedence(&"-".to_string()), 1);
+        assert_eq!(get_precedence(&"*".to_string()), 2);
+        assert_eq!(get_precedence(&"/".to_string()), 2);
+        assert_eq!(get_precedence(&"^".to_string()), 3);
+    }
+
+    #[test]
+    fn test_evaluate_addition_operation_tree()
+    {
+        let left_value:f64 = 5.0;
+        let right_value: f64 = 10.0;
+
+        let exp_tree = ExpressionTree
+        {
+            node_type: OPERATOR_NODE,
+            value: String::from("+"),
+            left: create_leaf_opt(left_value.to_string()),
+            right: create_leaf_opt(right_value.to_string())
+        };
+
+        assert_eq!(exp_tree.evaluate(), left_value + right_value);
+    }
+
+    #[test]
+    fn test_evaluate_subtraction_operation_tree()
+    {
+        let left_value:f64 = 5.0;
+        let right_value: f64 = 10.0;
+
+        let exp_tree = ExpressionTree
+        {
+            node_type: OPERATOR_NODE,
+            value: String::from("-"),
+            left: create_leaf_opt(left_value.to_string()),
+            right: create_leaf_opt(right_value.to_string())
+        };
+
+        assert_eq!(exp_tree.evaluate(), left_value - right_value);
+    }
+
+    #[test]
+    fn test_evaluate_multiplication_operation_tree()
+    {
+        let left_value:f64 = 5.0;
+        let right_value: f64 = 10.0;
+
+        let exp_tree = ExpressionTree
+        {
+            node_type: OPERATOR_NODE,
+            value: String::from("*"),
+            left: create_leaf_opt(left_value.to_string()),
+            right: create_leaf_opt(right_value.to_string())
+        };
+
+        assert_eq!(exp_tree.evaluate(), left_value * right_value);
+    }
+
+    #[test]
+    fn test_evaluate_division_operation_tree()
+    {
+        let left_value:f64 = 5.0;
+        let right_value: f64 = 10.0;
+
+        let exp_tree = ExpressionTree
+        {
+            node_type: OPERATOR_NODE,
+            value: String::from("/"),
+            left: create_leaf_opt(left_value.to_string()),
+            right: create_leaf_opt(right_value.to_string())
+        };
+
+        assert_eq!(exp_tree.evaluate(), left_value / right_value);
+    }
+
+    #[test]
+    fn test_evaluate_power_operation_tree()
+    {
+        let left_value:f64 = 5.0;
+        let right_value: f64 = 10.0;
+
+        let exp_tree = ExpressionTree
+        {
+            node_type: OPERATOR_NODE,
+            value: String::from("^"),
+            left: create_leaf_opt(left_value.to_string()),
+            right: create_leaf_opt(right_value.to_string())
+        };
+
+        assert_eq!(exp_tree.evaluate(), left_value.powf(right_value));
+    }
+
+    fn create_leaf_opt(value: String) -> Option<Box<ExpressionTree>>
+    {
+        Option::Some(Box::new(ExpressionTree
+        {
+            node_type: NUMBER_NODE,
+            value,
+            left: None,
+            right: None
+        }))
+    }
+}
