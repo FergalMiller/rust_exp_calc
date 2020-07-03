@@ -210,6 +210,20 @@ mod tests
         assert_eq!(exp_tree.evaluate(), FLOAT_VALUE_ONE.powf(FLOAT_VALUE_TWO));
     }
 
+    #[test]
+    fn test_evaluate_leaf()
+    {
+        let leaf = ExpressionTree
+        {
+            node_type: NUMBER_NODE,
+            value: FLOAT_VALUE_ONE.to_string(),
+            left: Option::None,
+            right: Option::None
+        };
+
+        assert_eq!(leaf.evaluate(), FLOAT_VALUE_ONE)
+    }
+
     fn create_leaf_opt(value: String) -> Option<Box<ExpressionTree>>
     {
         Option::Some(Box::new(ExpressionTree
