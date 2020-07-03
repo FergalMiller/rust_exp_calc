@@ -51,6 +51,18 @@ mod tests
     }
 
     #[test]
+    fn test_pop_with_leading_whitespace()
+    {
+        let mut exp = Expression { expression: String::from(" blink") };
+
+        let actual_popped = exp.pop().unwrap();
+        let actual_expression = exp.expression;
+
+        assert_eq!(actual_popped, 'b');
+        assert_eq!(actual_expression, "link")
+    }
+
+    #[test]
     fn test_peek()
     {
         let exp = Expression { expression: String::from("blink") };
@@ -60,6 +72,18 @@ mod tests
 
         assert_eq!(actual_popped, 'b');
         assert_eq!(actual_expression, "blink")
+    }
+
+    #[test]
+    fn test_peek_with_leading_whitespace()
+    {
+        let exp = Expression { expression: String::from(" blink") };
+
+        let actual_popped = exp.peek().unwrap();
+        let actual_expression = exp.expression;
+
+        assert_eq!(actual_popped, 'b');
+        assert_eq!(actual_expression, " blink")
     }
 
     #[test]
