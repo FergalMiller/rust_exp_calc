@@ -11,7 +11,7 @@ pub struct ExpressionTree
 
 impl ExpressionTree
 {
-    pub fn evaluate(&self) -> i32
+    pub fn evaluate(&self) -> f64
     {
         match self.node_type
         {
@@ -20,7 +20,7 @@ impl ExpressionTree
         }
     }
 
-    fn evaluate_branch(&self) -> i32
+    fn evaluate_branch(&self) -> f64
     {
         let left = self.left.as_ref().unwrap();
         let right = self.right.as_ref().unwrap();
@@ -30,7 +30,7 @@ impl ExpressionTree
             "-" => left.evaluate() - right.evaluate(),
             "*" => left.evaluate() * right.evaluate(),
             "/" => left.evaluate() / right.evaluate(),
-            "^" => left.evaluate() ^ right.evaluate(),
+            "^" => left.evaluate().powf(right.evaluate()),
             _ => panic!("Operator could not be matched in branch evaluation.")
         }
     }
