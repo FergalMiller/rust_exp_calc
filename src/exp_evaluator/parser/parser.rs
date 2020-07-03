@@ -1,6 +1,6 @@
 use crate::exp_evaluator::exp_tree::ExpressionTree;
 use crate::exp_evaluator::exp_tree::{NUMBER_NODE, OPERATOR_NODE};
-use crate::exp_evaluator::parser::lexer::{Lexer, ERR, NUM, PLUS, MINUS, MULTIPLY, DIVIDE, POWER, PAR_LEFT, PAR_RIGHT};
+use crate::exp_evaluator::parser::lexer::{Lexer, NUM, PLUS, MINUS, MULTIPLY, DIVIDE, POWER, PAR_LEFT, PAR_RIGHT};
 
 pub struct Parser
 {
