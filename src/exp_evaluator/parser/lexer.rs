@@ -41,23 +41,54 @@ impl Lexer
 
     fn lex_number(&mut self, c: char)
     {
+        let mut floating_point_found = false;
         self.number_value = String::new();
         self.number_value.push(c);
         loop
         {
-            let next_char_opt = self.expression.peek();
-            if next_char_opt.is_some()
-            {
-                let next_char = next_char_opt.unwrap();
-                if next_char.is_numeric()
-                {
-                    self.number_value.push(next_char);
-                    self.expression.pop();
-                }
-                else { break; }
-            }
-            else { break; }
+            if !self.process_next_char(&mut floating_point_found) { break; }
         }
         self.current_token = NUM;
     }
+
+    /// Processes the next peeked character in the expression.
+    ///
+    /// returns
+    ///     -`true` if the character is processed as a number value
+    ///     -`false` if the peeked character is not processed as a number
+    fn process_next_char(&mut self, floating_point_found: &mut bool) -> bool
+    {
+        let next_char_opt = self.expression.peek();
+        if next_char_opt.is_some()
+        {
+            let next_char = &next_char_opt.unwrap();
+            if char_is_numeric(next_char) { self.push_next_char_to_number_value(floating_point_found); }
+            else if next_char.is_whitespace() { self.expression.pop(); }
+            else { return false; }
+            true
+        }
+        else { false }
+    }
+
+    fn push_next_char_to_number_value(&mut self, floating_point_found: &mut bool)
+    {
+        let next_char = self.expression.pop().expect("Expected value when popping from expression.");
+        if next_char.is_numeric()
+        {
+            self.number_value.push(next_char);
+        }
+        else if next_char == '.'
+        {
+            println!("Found . b = {}", *floating_point_found);
+            if *floating_point_found { panic!("Second floating point found in number.")}
+            *floating_point_found = true;
+            self.number_value.push(next_char);
+        }
+        else { panic!("Cannot push character to number value!"); }
+    }
+}
+
+fn char_is_numeric(c: &char) -> bool
+{
+    c.is_numeric() || *c == '.'
 }
