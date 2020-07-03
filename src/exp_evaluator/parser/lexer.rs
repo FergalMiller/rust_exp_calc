@@ -1,5 +1,4 @@
 use crate::exp_evaluator::expression::Expression;
-use std::f32::MIN;
 
 pub const ERR:u8 = 0;
 pub const NUM:u8 = 1;
@@ -15,7 +14,7 @@ pub struct Lexer
 {
     pub expression: Expression,
     pub current_token: u8,
-    pub number_value: i32
+    pub number_value: String
 }
 
 impl Lexer
@@ -42,8 +41,8 @@ impl Lexer
 
     fn lex_number(&mut self, c: char)
     {
-        let mut number_string = String::new();
-        number_string.push(c);
+        self.number_value = String::new();
+        self.number_value.push(c);
         loop
         {
             let next_char_opt = self.expression.peek();
@@ -52,7 +51,7 @@ impl Lexer
                 let next_char = next_char_opt.unwrap();
                 if next_char.is_numeric()
                 {
-                    number_string.push(next_char);
+                    self.number_value.push(next_char);
                     self.expression.pop();
                 }
                 else { break; }
@@ -60,6 +59,5 @@ impl Lexer
             else { break; }
         }
         self.current_token = NUM;
-        self.number_value = number_string.parse().unwrap();
     }
 }
