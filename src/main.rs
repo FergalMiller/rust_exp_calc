@@ -7,6 +7,10 @@ use crate::exp_evaluator::exp_tree::ExpressionTree;
 
 mod exp_evaluator;
 
+const COMMAND_NEW_EXPRESSION: &str = "0";
+const COMMAND_EVALUATE: &str = "1";
+const COMMAND_IN_ORDER: &str = "2";
+
 fn main() 
 {
     println!("##-- rust_exp_calc says: Welcome! --##");
@@ -19,7 +23,7 @@ fn run()
     loop
     {
 
-        let expression_input = get_user_input(&"\nEnter your expression: ".to_string());
+        let expression_input = get_user_input(&"\nEnter new expression: ".to_string());
 
         match expression_input
         {
@@ -29,14 +33,7 @@ fn run()
 
         let expression_tree = parse_expression(Expression{ expression: expression_input } );
 
-        let command_input = get_user_input(&"\nEnter your command: ".to_string());
-
-        match command_input
-        {
-            _ if command_input == String::from("1") => println!("Evaluated: {}", expression_tree.evaluate()),
-            _ if command_input == String::from("2") => println!("In order: {}", expression_tree.to_string()),
-            _ => println!("Command not recognised.")
-        }
+        use_tree(&expression_tree);
     }
 }
 
@@ -57,4 +54,28 @@ fn parse_expression(expression: Expression) -> ExpressionTree
     let lexer = Lexer{ expression, current_token: ERR, number_value: "".to_string() };
     let mut parser = Parser { lexer };
     parser.parse()
+}
+
+fn use_tree(exp_tree: &ExpressionTree)
+{
+    loop
+    {
+        let command_input = get_user_input(&"\nEnter your command: ".to_string());
+
+        match command_input
+        {
+            _ if command_input == COMMAND_NEW_EXPRESSION => break,
+            _ if command_input == COMMAND_EVALUATE => println!("Evaluated: {}", exp_tree.evaluate()),
+            _ if command_input == COMMAND_IN_ORDER => println!("In order: {}", exp_tree.to_string()),
+            _ => { print!("Command not recognised. "); print_commands(); }
+        }
+    }
+}
+
+fn print_commands()
+{
+    println!("Available commands:");
+    println!("\t\"{}\": To restart with a new expression", COMMAND_NEW_EXPRESSION);
+    println!("\t\"{}\": To evaluate the current expression", COMMAND_EVALUATE);
+    println!("\t\"{}\": To print the current tree with in-order traversal", COMMAND_IN_ORDER);
 }
