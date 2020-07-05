@@ -7,6 +7,7 @@ use crate::exp_evaluator::exp_tree::ExpressionTree;
 
 mod exp_evaluator;
 
+const INPUT_QUIT: &str = "quit";
 const COMMAND_NEW_EXPRESSION: &str = "0";
 const COMMAND_EVALUATE: &str = "1";
 const COMMAND_IN_ORDER: &str = "2";
@@ -27,13 +28,13 @@ fn run()
 
         match expression_input
         {
-            _ if expression_input == String::from("quit") => break,
+            _ if expression_input == INPUT_QUIT => break,
             _ => println!("User entered: {}", expression_input)
         }
 
         let expression_tree = parse_expression(Expression{ expression: expression_input } );
 
-        use_tree(&expression_tree);
+        if !use_tree(&expression_tree) { break; }
     }
 }
 
@@ -56,7 +57,7 @@ fn parse_expression(expression: Expression) -> ExpressionTree
     parser.parse()
 }
 
-fn use_tree(exp_tree: &ExpressionTree)
+fn use_tree(exp_tree: &ExpressionTree) -> bool
 {
     loop
     {
@@ -64,12 +65,14 @@ fn use_tree(exp_tree: &ExpressionTree)
 
         match command_input
         {
+            _ if command_input == INPUT_QUIT => return false,
             _ if command_input == COMMAND_NEW_EXPRESSION => break,
             _ if command_input == COMMAND_EVALUATE => println!("Evaluated: {}", exp_tree.evaluate()),
             _ if command_input == COMMAND_IN_ORDER => println!("In order: {}", exp_tree.to_string()),
             _ => { print!("Command not recognised. "); print_commands(); }
         }
     }
+    true
 }
 
 fn print_commands()
