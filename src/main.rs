@@ -9,9 +9,9 @@ mod exp_evaluator;
 
 fn main() 
 {
-    println!("##-- Rust calculator says: Welcome! --##");
+    println!("##-- rust_exp_calc says: Welcome! --##");
     run();
-    println!("##-- Rust calculator says: Goodbye! --##")
+    println!("##-- rust_exp_calc says: Goodbye! --##")
 }
 
 fn run()
