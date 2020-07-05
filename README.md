@@ -9,3 +9,8 @@ Expressions in *rust_exp_calc* currently support:
  - `+`, `-`, `*`, `/`, and `^` operations
  - Built in order-of-operation recognition, with the option of 
  parenthesised expressions
+ 
+ Users may choose what to do with the parsed expression tree. 
+ *rust_exp_calc* currently supports :
+ - Expression evaluation (Command: `1`)
+ - In-order expression printing: (Command: `2`)
